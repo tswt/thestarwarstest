@@ -2,10 +2,12 @@
     if (window.innerWidth > 1080) {
         $('#hero').css('height', window.innerHeight);
         $('#hero_floating_content').css('top', '50%');
+        $('#down-arrow').css('display', 'block');
     }
     else {
         $('#hero').css('height', $('#hero_floating_content').outerHeight() + 160);
         $('#hero_floating_content').css('top', 80);
+        $('#down-arrow').css('display', 'none');
     }
     $('.locked').css('max-height', $('#w').outerWidth());
 }
