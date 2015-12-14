@@ -32,7 +32,7 @@
 
 .loading-div {
     display: none;
-    background-color: rgb(10, 10, 20);
+    background-color: rgb(23, 23, 123) !important;
     background-image: url('../img/squares.gif');
     background-repeat: no-repeat;
     background-position: center center;
