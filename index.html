@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="css/question.css" />
     <link rel="stylesheet" href="css/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="http://tswt.github.io/thestarwarstest/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Star Wars Test" />
+    <meta property="og:description" content="Built by the fans, for the fans. Take this unofficial Star Wars test to find out how well you know the story!" />
+    <meta property="og:image" content="http://tswt.github.io/thestarwarstest/img/swt80.png" />
 </head>
 <body onresize="Update()">
     <script>if (document.location.protocol == "https:") window.location.href = "http://tswt.github.io/thestarwarstest/";</script>
@@ -67,9 +72,10 @@
     <div class="questions" id="qspacephp"></div>
     <div class="gray-section question" id="results">
         <div class="section">
-            <div class="q-number">YOU SCORED <span id="sp_score">5</span>/6. <span id="sp_congrats">Well Done!</span><div>CLICK THE BUTTON BELOW TO CONTINUE.</div></div>
+            <div class="q-number">YOU SCORED <span id="sp_score">5</span>/6. <span id="sp_congrats">Well Done!</span><div id="sp_cont">CLICK THE BUTTON BELOW TO CONTINUE.</div></div>
             <a class="button" href="#" id="btn_continue">GO TO LEVEL <span id="sp_level_btn">2</span></a>
-            <h3>IMPRESS YOUR FRIENDS ON FACEBOOK BY SHARING YOUR RESULT</h3>
+            <h3 id="h3_impress">IMPRESS YOUR FRIENDS ON FACEBOOK BY SHARING YOUR RESULT</h3>
+            <a href="#" class="button" id="btn_fb_share">SHARE ON FACEBOOK</a>
         </div>
     </div>
     <div class="gray-section" id="footer">

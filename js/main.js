@@ -37,6 +37,15 @@ function takeToFocusCenter(id) {
     $("html, body").animate({ scrollTop: $(id).offset().top - (center_v > 0 ? center_v : 0) }, 270, 'swing');
 }
 
+function fbShare(url, title, descr, image, winWidth, winHeight) {
+    var winTop = (screen.height / 2) - (winHeight / 2);
+    var winLeft = (screen.width / 2) - (winWidth / 2);
+    window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+}
+
+var correct_count = 0;
+var current_level = 1;
+
 $(document).ready(function () {
     $('.gray-section').css('display', 'block');
     $('#vertical-fix').css('display', 'none');
@@ -52,12 +61,8 @@ $(document).ready(function () {
         takeToFocusCenter('#start-section');
     });
 
-    $('#btn_login_fb').click(function (e) {
+    $('#btn_continue').click(function (e) {
         e.preventDefault();
-        fb_login();
-    });
-
-    $('#btn_continue').click(function () {
         if (current_level != 4) {
             takeToFocusCenter('#' + level_index[current_level]);
             setTimeout(function () {
@@ -66,8 +71,10 @@ $(document).ready(function () {
         }
     });
 
-    var correct_count = 0;
-    var current_level = 1;
+    $('#btn_fb_share').click(function (e) {
+        e.preventDefault();
+        fbShare('http://tswt.github.io/thestarwarstest/lv' + current_level + '.html', 'I got ' + correct_count + '/6 on Level ' + current_level + '. Can you beat my score?', 'Built by the fans, for the fans. Take this unofficial Star Wars test to find out how well you know the story!', 'http://tswt.github.io/thestarwarstest/img/swt80.png', 720, 450);
+    });
 
     $('.level-block').click(function (e) {
         e.preventDefault();
@@ -117,14 +124,24 @@ $(document).ready(function () {
                                 }, 400);
                             } else {
                                 if (correct_count < 4) {
+                                    //No pass
                                     $('#sp_congrats').html("<br/>You need at least 4/6 to pass.");
+                                    $('#sp_cont').css("display", "none");
+                                    $('#h3_impress').css("display", "none");
+                                    $('#btn_continue').css('display', 'none');
+                                    $('#btn_fb_share').css('margin-top', '24px');
                                 } else {
+                                    //We passed
                                     $('#sp_congrats').html("Well Done!");
-                                }
-                                if (current_level != 4) {
-                                    $('#sp_level_btn').html(current_level + 1);
-                                } else {
-                                    $('#sp_level_btn').css('display', 'none');
+                                    if (current_level != 4) {
+                                        $('#sp_level_btn').html(current_level + 1);
+                                        $('#btn_continue').css('display', 'inline-block');
+                                    } else {
+                                        $('#btn_continue').css('display', 'none');
+                                    }
+                                    $('#sp_cont').css("display", "block");
+                                    $('#h3_impress').css("display", "block");
+                                    $('#btn_fb_share').css('margin-top', '0');
                                 }
                                 $('#sp_score').html(correct_count);
                                 $('#results').css("display", "block");
@@ -134,31 +151,6 @@ $(document).ready(function () {
                     });
                 });
             }, 500);
-        }
-    });
-
-    $('#send').click(function (e) {
-        e.preventDefault();
-        var valid_name = (cleanGarbage($('#f_name').val()) != "");
-        var valid_email = validEmailAddress($('#f_email').val());
-        var valid_message = (cleanGarbage($('#f_message').val()) != "");
-        $('#progress').css('display', 'block');
-
-        if (valid_name && valid_email && valid_message) {
-            $.post("php/contact.php", {
-                name: $('#f_name').val(),
-                email: $('#f_email').val(),
-                message: $('#f_message').val()
-            }).done(function (data) {
-                if (cleanGarbage(data) == "Success") {
-                    $('#progress').html('Your message was sent :-)');
-                }
-                else {
-                    $('#progress').html('Unexpected error :-/');
-                }
-            });
-        } else {
-            $('#progress').html('Invalid/Missing details.');
         }
     });
 });
