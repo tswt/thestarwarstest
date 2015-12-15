@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body onresize="Update()">
+    <script>if (document.location.protocol == "https:") window.location.href = "http://tswt.github.io/thestarwarstest/";</script>
     <div id="hero">
         <div class="stars"></div>
         <div class="twinkling"></div>
@@ -19,15 +20,6 @@
         <h1 id="open_times">The Star Wars Test</h1>
         <h2><a href="#" id="about_us_link">BUILT BY THE FANS, FOR THE FANS.<br />HOW WELL DO <b>YOU</b> KNOW THE STORY?</a></h2>
         <a class="button" href="#" id="contact">BEGIN THE JOURNEY</a><br />
-    </div>
-    <div id="menu">
-        <!--<div class="fb-like"
-             data-share="true"
-             data-width="450"
-             data-show-faces="true"
-             data-layout="button_count"
-             data-action="like">
-        </div>-->
     </div>
     <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
     <div id="down-arrow"></div>
@@ -73,16 +65,13 @@
     </div>
     <div class="gray-section question loading-div" id="loading-div-pre"></div>
     <div class="questions" id="qspacephp"></div>
-    <!--<div class="gray-section question">
+    <div class="gray-section question" id="results">
         <div class="section">
-            <h2>YOUR SCORE: 5/6</h2>
-            <h2>CONGRATULATIONS! YOU HAVE UNLOCKED</h2>
-            <img src="http://www.thestarwarstest.com/img/lightsaber.png" />
-            <h2>LEVEL 2: R2D2</h2>
-            <h3>SHARE YOUR ACCOMPLISHMENT ON FACEBOOK BY POSTING THIS LINK</h3>
+            <div class="q-number">YOU SCORED <span id="sp_score">5</span>/6. <span id="sp_congrats">Well Done!</span><div>CLICK THE BUTTON BELOW TO CONTINUE.</div></div>
+            <a class="button" href="#" id="btn_continue">CONTINUE TO LEVEL <span id="sp_level_btn">2</span></a>
+            <h3>IMPRESS YOUR FRIENDS ON FACEBOOK BY SHARING YOUR RESULT</h3>
         </div>
     </div>
-    <div class="gray-section question loading-div" id="result"></div>-->
     <div class="gray-section" id="footer">
         <div class="section white">
             <a href="https://www.facebook.com/" target="_blank" class="facebook social-button"></a>

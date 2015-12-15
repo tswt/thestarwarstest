@@ -30,9 +30,17 @@
     font-weight: 300;
 }
 
+#btn_continue{
+    margin: 24px 0;
+}
+
+#results {
+    display: none;
+}
+
 .loading-div {
     display: none;
-    background-color: rgb(23, 23, 123) !important;
+    background-color: rgb(23, 23, 23) !important;
     background-image: url('../img/squares.gif');
     background-repeat: no-repeat;
     background-position: center center;

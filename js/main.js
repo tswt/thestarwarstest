@@ -32,10 +32,16 @@ function NextQuestion() {
 var datamem = "";
 var level_index = new Array('w', 'x', 'y', 'z');
 
+function takeToFocusCenter(id) {
+    var center_v = (window.innerHeight * .5 - $(id).outerHeight() * .5);
+    $("html, body").animate({ scrollTop: $(id).offset().top - (center_v > 0 ? center_v : 0) }, 270, 'swing');
+}
+
 $(document).ready(function () {
     $('.gray-section').css('display', 'block');
     $('#vertical-fix').css('display', 'none');
     $('.loading-div').css('display', 'none');
+    $('#results').css("display", "none");
 
     setInterval(function () {
         $('#down-arrow').toggleClass('down');
@@ -43,8 +49,7 @@ $(document).ready(function () {
 
     $('#contact').click(function (e) {
         e.preventDefault();
-        var center_v = (window.innerHeight * .5 - $('#start-section').outerHeight() * .5);
-        $("html, body").animate({ scrollTop: $("#start-section").offset().top - (center_v > 0 ? center_v : 0)}, 270, 'swing');
+        takeToFocusCenter('#start-section');
     });
 
     $('#btn_login_fb').click(function (e) {
@@ -52,46 +57,79 @@ $(document).ready(function () {
         fb_login();
     });
 
+    $('#btn_continue').click(function () {
+        if (current_level != 4) {
+            takeToFocusCenter('#' + level_index[current_level]);
+            setTimeout(function () {
+                $('#' + level_index[current_level]).addClass('unlocked');
+            }, 600);
+        }
+    });
+
+    var correct_count = 0;
+    var current_level = 1;
+
     $('.level-block').click(function (e) {
         e.preventDefault();
-        //Display the loading thingy
-        $('#loading-div-pre').css('display', 'block');
-        $('#qspacephp').css('display', 'none');
-        var center_v = (window.innerHeight * .5 - $('#loading-div-pre').outerHeight() * .5);
-        $("html, body").animate({ scrollTop: $("#loading-div-pre").offset().top - (center_v > 0 ? center_v : 0) }, 270, 'swing');
-        var obj = $(this);
-        setTimeout(function () {
-            //Load the questions from this level
-            $.post("http://www.thestarwarstest.com/php/questions.php", {
-                d: level_index.indexOf(obj.attr('id')) + 1
-            }).done(function (data) {
-                //Add them in :-)
-                $('#qspacephp').html(cleanGarbage(data));
-                $('#qspacephp').css('display', 'block');
-                $('.gray-section').css('display', 'block');
-                $('#loading-div-pre').css('display', 'none');
-                question_number = 0;
-                NextQuestion();
-                $('.answers a').click(function (e) {
-                    e.preventDefault();
-                    //has it already been solved?
-                    if (!$(this).parent().parent().hasClass("solved")) {
-                        if ($(this).hasClass("correct")) {
-                            $(this).css('background-color', 'rgb(0, 100, 0)');
-                        } else {
-                            $(this).css('background-color', 'rgb(100, 0, 0)');
-                            //Mark the correct answer!
-                            var id = $(this).parent().parent().attr('id');
-                            $("#" + id + " a.correct").addClass("selected");
+        if ($(this).hasClass('unlocked')) {
+            //Display the loading thingy
+            $('#loading-div-pre').css('display', 'block');
+            $('#qspacephp').css('display', 'none');
+            takeToFocusCenter('#loading-div-pre');
+            var obj = $(this);
+            setTimeout(function () {
+                //Load the questions from this level
+                $.post("http://www.thestarwarstest.com/php/questions.php", {
+                    d: level_index.indexOf(obj.attr('id')) + 1
+                }).done(function (data) {
+                    //Add them in :-)
+                    correct_count = 0;
+                    current_level = level_index.indexOf(obj.attr('id')) + 1;
+                    $('#qspacephp').html(cleanGarbage(data));
+                    $('#qspacephp').css('display', 'block');
+                    $('.gray-section').css('display', 'block');
+                    $('#loading-div-pre').css('display', 'none');
+                    question_number = 0;
+                    NextQuestion();
+                    $('.answers a').click(function (e) {
+                        e.preventDefault();
+                        //has it already been solved?
+                        if (!$(this).parent().parent().hasClass("solved")) {
+                            if ($(this).hasClass("correct")) {
+                                $(this).css('background-color', 'rgb(0, 100, 0)');
+                                ++correct_count;
+                            } else {
+                                $(this).css('background-color', 'rgb(100, 0, 0)');
+                                //Mark the correct answer!
+                                var id = $(this).parent().parent().attr('id');
+                                $("#" + id + " a.correct").addClass("selected");
+                            }
+                            $(this).parent().parent().addClass("solved");
+
+                            var solved_count = 0;
+                            $('.solved').each(function (i, obj) {
+                                ++solved_count;
+                            });
+                            if (solved_count != 6) {
+                                setTimeout(function () {
+                                    NextQuestion();
+                                }, 400);
+                            } else {
+                                if (correct_count < 4) {
+                                    $('#sp_congrats').html("<br/>You need at least 4/6 to pass.");
+                                } else {
+                                    $('#sp_congrats').html("Well Done!");
+                                }
+                                $('#sp_level_btn').html(current_level + 1);
+                                $('#sp_score').html(correct_count);
+                                $('#results').css("display", "block");
+                                takeToFocusCenter('#results');
+                            }
                         }
-                        $(this).parent().parent().addClass("solved");
-                        setTimeout(function () {
-                            NextQuestion();
-                        }, 400);
-                    }
+                    });
                 });
-            });
-        }, 500);
+            }, 500);
+        }
     });
 
     $('#send').click(function (e) {
