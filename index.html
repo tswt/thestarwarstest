@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>The Star Wars Test</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="css/stars.css" />
+    <link rel="stylesheet" href="css/material-spinner.css" />
+    <link rel="stylesheet" href="css/question.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body onresize="Update()">
+    <div id="hero">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+    </div>
+    <div id="hero_floating_content">
+        <img src="http://www.thestarwarstest.com/img/r2d2.png" id="logo" />
+        <h1 id="open_times">The Star Wars Test</h1>
+        <h2><a href="#" id="about_us_link">BUILT BY THE FANS, FOR THE FANS.<br />HOW WELL DO <b>YOU</b> KNOW THE STORY?</a></h2>
+        <a class="button" href="#" id="contact">BEGIN THE JOURNEY</a><br />
+    </div>
+    <div id="menu">
+        <!--<div class="fb-like"
+             data-share="true"
+             data-width="450"
+             data-show-faces="true"
+             data-layout="button_count"
+             data-action="like">
+        </div>-->
+    </div>
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
+    <div id="down-arrow"></div>
+    <div id="social-buttons-top">
+        <a href="https://www.facebook.com/" target="_blank" class="facebook social-button"></a>
+        <a href="https://www.instagram.com/" target="_blank" class="instagram social-button"></a>
+    </div>
+    <div class="gray-section question" id="start-section">
+        <div class="section">
+            <div class="q-number">CLICK ON A LEVEL. UNLOCK THE FORCE.<div>"DO, OR DO NOT. THERE IS NO TRY." - YODA</div></div>
+            <div class="pure-g levels">
+                <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <div class="level-block unlocked" id="w">
+                        <img src="http://www.thestarwarstest.com/img/lightsaber.png" alt="Lightsaber" />
+                        <div class="q-number">LEVEL 1<div>LIGHTSABER</div></div>
+                        <span class="locked"></span>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <div class="level-block" id="x">
+                        <img src="http://www.thestarwarstest.com/img/r2d2.png" alt="R2D2" />
+                        <div class="q-number">LEVEL 2<div>R2D2</div></div>
+                        <span class="locked"></span>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <div class="level-block" id="y">
+                        <img src="http://www.thestarwarstest.com/img/darth-vader.png" alt="Darth Vader" />
+                        <div class="q-number">LEVEL 3<div>DARTH VADER</div></div>
+                        <span class="locked"></span>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <div class="level-block" id="z">
+                        <img src="http://www.thestarwarstest.com/img/death-star.png" alt="Death Star" />
+                        <div class="q-number">LEVEL 4<div>DEATH STAR</div></div>
+                        <span class="locked"></span>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="q-number">LEADERBOARD<div>WHERE DO YOU STAND?</div></div>-->
+        </div>
+    </div>
+    <div class="gray-section question loading-div" id="loading-div-pre"></div>
+    <div class="questions" id="qspacephp"></div>
+    <!--<div class="gray-section question">
+        <div class="section">
+            <h2>YOUR SCORE: 5/6</h2>
+            <h2>CONGRATULATIONS! YOU HAVE UNLOCKED</h2>
+            <img src="http://www.thestarwarstest.com/img/lightsaber.png" />
+            <h2>LEVEL 2: R2D2</h2>
+            <h3>SHARE YOUR ACCOMPLISHMENT ON FACEBOOK BY POSTING THIS LINK</h3>
+        </div>
+    </div>
+    <div class="gray-section question loading-div" id="result"></div>-->
+    <div class="gray-section" id="footer">
+        <div class="section white">
+            <a href="https://www.facebook.com/" target="_blank" class="facebook social-button"></a>
+            <a href="https://www.instagram.com/" target="_blank" class="instagram social-button"></a>
+            <p class="attrib">
+                <b>
+                    This site is not endorsed by Lucasfilm Ltd. or Disney and is intended for entertainment and information purposes only. The official Star Wars site can be found at <a href="http://www.starwars.com/">www.starwars.com</a>. Star Wars, the Star Wars logo, all names and pictures of Star Wars characters, vehicles and any other Star Wars related items are registered trademarks and/or copyrights of Lucasfilm Ltd., or their respective trademark and copyright holders.
+                </b>
+            </p>
+        </div>
+    </div>
+    <div id="vertical-fix"></div>
+    <img src="img/squares.gif" class="pre-load-img" />
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5667f5eded168dc6" async="async"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>Update()</script>
+</body>
+</html>
