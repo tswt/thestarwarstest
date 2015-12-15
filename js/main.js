@@ -89,6 +89,7 @@ $(document).ready(function () {
                     $('#qspacephp').css('display', 'block');
                     $('.gray-section').css('display', 'block');
                     $('#loading-div-pre').css('display', 'none');
+                    $('#results').css('display', 'none');
                     question_number = 0;
                     NextQuestion();
                     $('.answers a').click(function (e) {
@@ -120,7 +121,11 @@ $(document).ready(function () {
                                 } else {
                                     $('#sp_congrats').html("Well Done!");
                                 }
-                                $('#sp_level_btn').html(current_level + 1);
+                                if (current_level != 4) {
+                                    $('#sp_level_btn').html(current_level + 1);
+                                } else {
+                                    $('#sp_level_btn').css('display', 'none');
+                                }
                                 $('#sp_score').html(correct_count);
                                 $('#results').css("display", "block");
                                 takeToFocusCenter('#results');
