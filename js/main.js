@@ -86,7 +86,7 @@ $(document).ready(function () {
             var obj = $(this);
             setTimeout(function () {
                 //Load the questions from this level
-                $.post("http://www.thestarwarstest.com/php/questions.php", {
+                $.post("http://www.drillinator.com/php/questions.php", {
                     d: level_index.indexOf(obj.attr('id')) + 1
                 }).done(function (data) {
                     //Add them in :-)
